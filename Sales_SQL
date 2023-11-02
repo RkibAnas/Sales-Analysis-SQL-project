@@ -1,0 +1,112 @@
+-- Sales Analysis by RKIB ANAS--    
+dataset link = https://www.kaggle.com/datasets/iamsouravbanerjee/customer-shopping-trends-dataset
+
+
+   -- Demographic Analysis --    
+-- Average Client's Age 
+  
+ select avg(age) as Average_Age 
+ from sales_analysis.sales;
+
+-- Calculate the distribution of customers by gender
+ select gender, count(*) as ClientsNumber
+ from sales_analysis.sales
+ group by gender;
+ 
+-- Identify the most common age groups among customers.
+
+select age, count(*)as CLientsNumber
+from sales_analysis.sales
+group by Age 
+order by ClientsNumber DESC;
+
+  -- Purchasing Analysis --
+  -- Calculate the total amount of purchases --
+select sum(`Purchase Amount (USD)`) as TotalPurchase
+from sales_analysis.sales;
+
+-- Find the most selled products --
+select distinct `Item Purchased`, count(*) as PurchaseNUmbers
+from sales_analysis.sales
+group by `Item Purchased`
+order by PurchaseNumbers desc;
+
+
+ 
+ -- Calculate Average Purchase Amount --
+select avg(`Purchase Amount (USD)`) AS AveragePurchaseAmount
+from sales_analysis.sales;
+
+       -- Rating Analysis --
+-- Find the most popular product categories --
+ select distinct avg(`Review Rating`) as AvgRating,  Category
+ from sales_analysis.sales
+ group by Category
+ order by AvgRating desc;  
+ 
+-- Find products with the best and worst satisfaction ratings (based on review rating).
+
+select  distinct  `Item Purchased`, avg(`Review Rating`) as AverageRating
+from sales_analysis.sales
+group by `Item Purchased`
+order by AverageRating desc;
+ 
+ -- Analyze comments to identify positive or negative trends.
+ select  distinct *
+ from sales_analysis.sales
+ where `Review Rating` >=4;
+ 
+ select  distinct *
+ from sales_analysis.sales
+ where `Review Rating`<4;
+
+  -- Shipping Analysis --
+  
+-- What is the most used shipping method--
+
+select `shipping Type`, count(`shipping Type`) as NumberUsed
+from sales_analysis.sales
+group by `shipping Type`
+order by NumberUsed desc;
+
+-- what is the state with the most customers --
+
+select distinct Location, count(`Customer ID`) as NumbersofClients
+from sales_analysis.sales
+group by Location 
+order by NumbersofClients desc;
+    
+  -- Season Analysis --
+
+-- what is the season with the most sales 
+
+select distinct Season, count(`Item Purchased`) As ItemsNumbers
+from sales_analysis.sales
+group by Season 
+order by ItemsNumbers desc;
+
+-- Fidelity Analysis --
+
+-- What is the average of the previous purchases  --
+
+select avg(`Previous Purchases`) as AveragePreviousPurchase
+from sales_analysis.sales;
+
+-- What is the most used payment method
+
+select distinct `Payment Method`, count( `Payment Method`) as NumberUsed
+from sales_analysis.sales
+group by  `Payment Method`
+order by NumberUsed desc;
+
+-- What is the purchasing frequency of the clients --
+
+select distinct `Frequency of Purchases`, count(`Customer ID`) as NumberofClients
+from sales_analysis.sales
+group by `Frequency of Purchases`
+order by NumberofClients
+
+
+
+
+SELECT * FROM sales_analysis.sales;
